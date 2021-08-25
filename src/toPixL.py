@@ -44,5 +44,3 @@ def epicAlgorithm(square: int,ImgW,ImgH,file,img):
   
   cv2.imwrite(os.getcwd() + "/dataset/train/panda/B/"+ file, cv2.cvtColor(background, cv2.COLOR_RGB2BGR,background))
 
-toThePixL(8)
-
