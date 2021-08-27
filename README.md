@@ -32,10 +32,11 @@ Dataset that extracted to directory with pixera prepares for [GAN method](https:
 | `src/`           | Directory which includes method(s) |
 | `dataset/`         | Dataset directory |
 | `examples/`            | Will have added eternal examples, Fasten your belts!  |
+| `results/`            | Will have included consequences of training that generated model and images   |
 
 ## Initialization
 
-
+This way suggest for developers who want to create new method. Python notebooks in the examples directory can be used by developers who want to design their own trained model.
 
 ```python
  !git clone https://github.com/AlicanAKCA/pixera
