@@ -6,22 +6,39 @@
 </div>
 
 # pixera
-Pixera is a new dimension for GAN (Generative Adversarial Network). Provides to create 'pixed' images for Pixel-Art. 
+Pixera is a new dimension for GAN (Generative Adversarial Network). Provides to create 'pixed' images for Pixel-Art. The point you need to pay attention to is that the computer will do this job!
 
-<a name="initial"/>
-<div align="center">
-<a href="https://github.com/AlicanAKCA/pixera" target="_blank">
-<img src="img/initial.jpg" alt="" width="250" height="500"></img>
-</a>
-</div>
+**Please contact me via my accounts if you wish to add new method(s).**
 
+## GAN and pixera
 
-# pixera
-life's pixel is beginning to change with pixera
+The pixera provides to change image type as you can see below. Method that used below is one of the ways that can be used.
 
 <a name="logo"/>
 <div align="center">
 <a href="https://github.com/AlicanAKCA/pixera" target="_blank">
-<img src="img/initial.jpg" alt="" width="250" height="500"></img>
+<img src="img/method_1.png" alt="" width="1024" height="252"></img>
 </a>
 </div>
+
+Dataset that extracted to directory with pixera prepares for [GAN method](https://arxiv.org/abs/1406.2661v1). After the this point, you can train model that include 'pixed' images with GAN method.
+
+
+
+## Source Code Organization
+
+| Directory         | Contents                                                           |
+| -                 | -                                                                  |
+| `src/`           | Directory which includes method(s) |
+| `dataset/`         | Dataset directory |
+| `examples/`            | Will have added eternal examples, Fasten your belts!  |
+
+## Initialization
+
+
+
+```python
+ !git clone https://github.com/AlicanAKCA/pixera
+```
+
+
