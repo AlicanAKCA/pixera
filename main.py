@@ -1,4 +1,4 @@
-from src.toPixL import *
+from methods.firstMethod import *
 
 toThePixL(4)
 

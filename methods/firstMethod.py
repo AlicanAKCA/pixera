@@ -1,9 +1,8 @@
+#Author: Alican Akca
+
 import os
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
-from matplotlib import patches
-import matplotlib.image as mpimg
 from PIL import Image
 
 def toThePixL(square):
