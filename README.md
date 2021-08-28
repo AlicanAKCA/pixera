@@ -29,10 +29,11 @@ Dataset that extracted to directory with pixera prepares for [GAN method](https:
 
 | Directory         | Contents                                                           |
 | -                 | -                                                                  |
-| `src/`           | Directory which includes method(s) |
+| `src/`           | Includes main GAN method. |
 | `dataset/`         | Dataset directory |
 | `examples/`            | Will have added eternal examples, Fasten your belts!  |
-| `results/`            | Will have included consequences of training that generated model and images   |
+| `methods/`            | Directory which includes method(s).  |
+| `results/`            | Will have included consequences of training that generated model and images.   |
 
 ## Initialization
 
