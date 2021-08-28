@@ -5,11 +5,12 @@ import cv2
 import numpy as np
 from PIL import Image
 
+os.chdir("/")
+
 def toThePixL(square):
-  os.chdir("/content/gdrive/MyDrive/PixL")
-  files = os.listdir(os.getcwd() + "/dataset/train/panda/A")
+  files = os.listdir(f"{os.getcwd()}/original")
   for index, file in enumerate(files):
-    img = Image.open(os.getcwd() + "/dataset/train/panda/A/"+ file)
+    img = Image.open(f"{os.getcwd()}/original/{file}")
     img = img.convert("RGB")
     img = img.resize((64, 64), Image.LANCZOS)
     ImgW, ImgH = img.size
@@ -41,5 +42,5 @@ def epicAlgorithm(square: int,ImgW,ImgH,file,img):
                   pt2=(pixValues[pen][1][0]+numOfSquaresFunc(square,ImgW,ImgH)[2],pixValues[pen][1][1]+numOfSquaresFunc(square,ImgW,ImgH)[2]), 
                   color=(pixValues[pen][0][0],pixValues[pen][0][1],pixValues[pen][0][2]), thickness=-1)
   
-  cv2.imwrite(os.getcwd() + "/dataset/train/panda/B/"+ file, cv2.cvtColor(background, cv2.COLOR_RGB2BGR,background))
+  cv2.imwrite(f"{os.getcwd()}/pixed/"+ file, cv2.cvtColor(background, cv2.COLOR_RGB2BGR,background))
 
