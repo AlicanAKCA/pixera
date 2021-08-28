@@ -43,4 +43,8 @@ This way suggest for developers who want to create new method. Python notebooks 
  !git clone https://github.com/AlicanAKCA/pixera
 ```
 
+Images that you will used, should be storaged in `/dataset/original/`. After that, run `main.py`! Please don't forget to check out pixel size you want in this file.
 
+```python
+ !python main.py
+```
