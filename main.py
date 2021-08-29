@@ -1,4 +1,4 @@
 from methods.firstMethod import *
 
-toThePixL(4)
+toThePixL(64,4)
 
