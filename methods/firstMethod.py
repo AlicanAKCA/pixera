@@ -7,7 +7,7 @@ from PIL import Image
 
 os.chdir("/") # Please pay attention to this step. Thx!
 
-def toThePixL(pixel,square):
+def toThePixL(pixel = 64,square = 4):
   files = os.listdir(f"{os.getcwd()}/dataset/original")
   for index, file in enumerate(files):
     img = Image.open(f"{os.getcwd()}/dataset/original/{file}")
