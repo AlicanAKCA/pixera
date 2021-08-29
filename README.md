@@ -48,3 +48,16 @@ Images that you will used, should be storaged in `/dataset/original/`. After tha
 ```python
  !python main.py
 ```
+
+## Example(s)
+
+#### Anime Faces
+
+<a name="logo"/>
+<div align="center">
+<a href="https://github.com/AlicanAKCA/pixera" target="_blank">
+<img src="img/example_1.jpg" alt="" width="640" height="250"></img>
+</a>
+</div>
+
+* Run it on Kaggle for minimal errors. Have fun! [Kaggle Notebook](https://www.kaggle.com/alicanakca/gan-example)
