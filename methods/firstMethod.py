@@ -16,12 +16,12 @@ def toThePixL(pixel = 64,square = 4):
     ImgW, ImgH = img.size
     epicAlgorithm(square,ImgW,ImgH,file,img)
 
-def numOfSquaresFunc(square: int,ImgW,ImgH):
+def numOfSquaresFunc(square: int,ImgW: int,ImgH: int):
   numOfSquaresW = round((ImgW / square) - 1)
   numOfSquaresH = round((ImgH / square) - 1)
   return (numOfSquaresW,numOfSquaresH) , square, square//2
 
-def epicAlgorithm(square: int,ImgW,ImgH,file,img):
+def epicAlgorithm(square: int,ImgW: int,ImgH: int,file,img):
   pixValues = []
 
   for j in range(1,numOfSquaresFunc(square,ImgW,ImgH)[0][1]+1):
