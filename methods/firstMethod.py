@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 from PIL import Image
 
-os.chdir("/") # Please pay attention to this step. Thx!
+#os.chdir("/") Pay attention to this step, please. Thx!
 
 def toThePixL(pixel = 64,square = 4):
   files = os.listdir(f"{os.getcwd()}/dataset/original")
