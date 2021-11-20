@@ -5,14 +5,11 @@ import cv2
 import numpy as np
 from PIL import Image
 
-#os.chdir("/") Pay attention to this step, please. Thx!
-
-def toThePixL(pixel = 64,square = 4):
+def toThePixL(square = 16):
   files = os.listdir(f"{os.getcwd()}/dataset/original")
   for index, file in enumerate(files):
     img = Image.open(f"{os.getcwd()}/dataset/original/{file}")
     img = img.convert("RGB")
-    img = img.resize((pixel, pixel), Image.LANCZOS)
     ImgW, ImgH = img.size
     epicAlgorithm(square,ImgW,ImgH,file,img)
 
@@ -34,13 +31,17 @@ def epicAlgorithm(square: int,ImgW: int,ImgH: int,file,img):
             (i * numOfSquaresFunc(square,ImgW,ImgH)[1] - numOfSquaresFunc(square,ImgW,ImgH)[2],
             j * numOfSquaresFunc(square,ImgW,ImgH)[1] - numOfSquaresFunc(square,ImgW,ImgH)[2])))
  
-  background = 255 * np.ones(shape=[ImgW - numOfSquaresFunc(square,ImgW,ImgH)[1], ImgH - numOfSquaresFunc(square,ImgW,ImgH)[1], 3], dtype=np.uint8)         
+  background = 255 * np.ones(shape=[ImgH - numOfSquaresFunc(square,ImgW,ImgH)[1], 
+                                    ImgW - numOfSquaresFunc(square,ImgW,ImgH)[1]*2, 3], 
+                                    dtype=np.uint8)         
   
   for pen in range(len(pixValues)):
     
-    cv2.rectangle(background, pt1=(pixValues[pen][1][0]-numOfSquaresFunc(square,ImgW,ImgH)[2],pixValues[pen][1][1]-numOfSquaresFunc(square,ImgW,ImgH)[2]), 
+    cv2.rectangle(background, 
+                  pt1=(pixValues[pen][1][0]-numOfSquaresFunc(square,ImgW,ImgH)[2],pixValues[pen][1][1]-numOfSquaresFunc(square,ImgW,ImgH)[2]), 
                   pt2=(pixValues[pen][1][0]+numOfSquaresFunc(square,ImgW,ImgH)[2],pixValues[pen][1][1]+numOfSquaresFunc(square,ImgW,ImgH)[2]), 
-                  color=(pixValues[pen][0][0],pixValues[pen][0][1],pixValues[pen][0][2]), thickness=-1)
+                  color=(pixValues[pen][0][0],pixValues[pen][0][1],pixValues[pen][0][2]), 
+                  thickness=-1)
   
-  cv2.imwrite(f"{os.getcwd()}/dataset/pixed/{file}", cv2.cvtColor(background, cv2.COLOR_RGB2BGR,background))
-
+  cv2.imwrite(f"{os.getcwd()}/dataset/pixed/{file}", 
+              cv2.cvtColor(background, cv2.COLOR_RGB2BGR,background))
