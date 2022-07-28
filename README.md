@@ -1,3 +1,5 @@
+The project will be updated to the latest version in a few days.
+
 <a name="logo"/>
 <div align="center">
 <a href="https://github.com/AlicanAKCA/pixera" target="_blank">
