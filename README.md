@@ -1,4 +1,4 @@
-The project will be updated to the latest version in a few days.
+The project will be updated to the latest version in a few days. This is not stable version of pixera. 
 
 <a name="logo"/>
 <div align="center">
