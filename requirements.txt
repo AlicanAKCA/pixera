@@ -12,4 +12,4 @@ PyYaml
 flask-ngrok
 paddlepaddle
 paddlehub
-numpy==1.19.5
+numpy==1.22.0
