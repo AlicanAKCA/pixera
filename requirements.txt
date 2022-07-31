@@ -1,0 +1,15 @@
+pip
+tensorflow
+Flask
+gunicorn
+Pillow
+opencv_python
+google-cloud-storage
+algorithmia
+scikit-video
+tf_slim
+PyYaml
+flask-ngrok
+paddlepaddle
+paddlehub
+numpy==1.19.5
