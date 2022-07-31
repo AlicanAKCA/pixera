@@ -13,15 +13,7 @@ The second one offers pixel art conversion for your images, including pictures a
 <a name="logo"/>
 <div align="center">
 <a href="https://github.com/AlicanAKCA/pixera" target="_blank">
-<img src="img/example_2.jpg" alt="" width="1008" height="333"></img>
-</a>
-</div>
-
-</div>
-<a name="logo"/>
-<div align="center">
-<a href="https://github.com/AlicanAKCA/pixera" target="_blank">
-<img src="img/examples_4.jpg" alt="" width="996" height="332"></img>
+<img src="img/example_2.jpg" alt="" width="777" height="259"></img>
 </a>
 </div>
 
