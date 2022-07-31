@@ -13,13 +13,21 @@ The second one offers pixel art conversion for your images, including pictures a
 <a name="logo"/>
 <div align="center">
 <a href="https://github.com/AlicanAKCA/pixera" target="_blank">
-<img src="img/method_1.png" alt="" width="1024" height="252"></img>
+<img src="img/example_2.jpg" alt="" width="1008" height="333"></img>
+</a>
+</div>
+
+</div>
+<a name="logo"/>
+<div align="center">
+<a href="https://github.com/AlicanAKCA/pixera" target="_blank">
+<img src="img/examples_4.jpg" alt="" width="996" height="332"></img>
 </a>
 </div>
 
 ## GAN and pixera
 
-The pixera provides to change image type as you can see below. In this [GAN Example](https://www.kaggle.com/code/alicanakca/gan-example), images in the dataset are arranged by passing through the Pixera algorithm. Thus, pixel characters were created using the GAN algorithm. The trained models are available on the [Kaggle](https://www.kaggle.com/code/alicanakca/gan-example).
+The pixera provides to change image type as you can see below. In this [GAN Example](/examples), images in the dataset are arranged by passing through the Pixera algorithm. Thus, pixel characters were created using the GAN algorithm. The trained models are available on the [Kaggle](https://www.kaggle.com/code/alicanakca/gan-example).
 
 <a name="logo"/>
 <div align="center">
@@ -35,7 +43,7 @@ Approach provides to combine two drawing features. With this option, you will ha
 <a name="logo"/>
 <div align="center">
 <a href="https://github.com/AlicanAKCA/pixera" target="_blank">
-<img src="img/method_1.png" alt="" width="1024" height="252"></img>
+<img src="img/example_3.jpg" alt="" width="935" height="259"></img>
 </a>
 </div>
 
