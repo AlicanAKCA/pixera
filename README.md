@@ -78,16 +78,8 @@ After running the app.py, will have shown you a link which provides to reach the
 
 2. Qin, Xuebin and Zhang, Zichen and Huang, Chenyang and Dehghan, Masood and Zaiane, Osmar and Jagersand, Martin (U2-Net: Going Deeper with Nested U-Structure for Salient Object Detection)
 
-     ```Licensed under the Apache-2.0 
-     @InProceedings{Qin_2020_PR,
-     title = {U2-Net: Going Deeper with Nested U-Structure for Salient Object Detection},
-     author = {Qin, Xuebin and Zhang, Zichen and Huang, Chenyang and Dehghan, Masood and Zaiane, Osmar and Jagersand, Martin},
-     journal = {Pattern Recognition},
-     volume = {106},
-     pages = {107404},
-     year = {2020}
-     }
-     ```
+     Licensed under the Apache-2.0 
+
 3. Copyright (C) Alican Akca. (Pixera Algorithm)
 
      Suitable for commercial use.

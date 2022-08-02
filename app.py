@@ -3,8 +3,8 @@ import numpy as np
 import gradio as gr
 import paddlehub as hub
 from methods.img2pixl import pixL
-from methods.combine import combine
-from methods.white_box_cartoonizer.cartoonize import WB_Cartoonize
+from examples.pixelArt.combine import combine
+from examples.pixelArt.white_box_cartoonizer.cartoonize import WB_Cartoonize
 model = hub.Module(name='U2Net')
 pixl = pixL()
 combine = combine()
