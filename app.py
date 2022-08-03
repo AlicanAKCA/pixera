@@ -9,6 +9,12 @@ model = hub.Module(name='U2Net')
 pixl = pixL()
 combine = combine()
 
+def control(image,pixel_size, checkbox1):
+  if image.name.endswith('.gif'):
+    pass  #GIF Processing
+  else:
+    return func_tab1(image,pixel_size, checkbox1)
+ 
 def func_tab1(image,pixel_size, checkbox1):
   image = cv2.imread(image.name)
   image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -30,24 +36,12 @@ def func_tab1(image,pixel_size, checkbox1):
     result = pixl.toThePixL([image], pixel_size)
   return result
 
-def func_tab2():
-  pass
-
 inputs_tab1 = [gr.inputs.Image(type='file', label="Image"),
                gr.Slider(4, 100, value=12, step = 2, label="Pixel Size"),
                gr.Checkbox(label="Object-Oriented Inference", value=False)]
 outputs_tab1 = [gr.Image(type="numpy",label="Front")]
 
-inputs_tab2 = [gr.Video()]
-outputs_tab2 = [gr.Video()]
-
-tab1 = gr.Interface(fn = func_tab1,
+gr.Interface(fn = control,
                     inputs = inputs_tab1,
-                    outputs = outputs_tab1)
-#Pixera for Videos
-tab2 = gr.Interface(fn = func_tab2,
-                    inputs = inputs_tab2,
-                    outputs = outputs_tab2)
-
-gr.TabbedInterface([tab1], ["Pixera for Images"]).launch()
+                    outputs = outputs_tab1).launch()
 
