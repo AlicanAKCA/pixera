@@ -20,7 +20,7 @@ except ImportError:
 from examples.pixelArt.white_box_cartoonizer.components.guided_filter import gf
 from examples.pixelArt.white_box_cartoonizer.components.network import nk
 
-weights_dir = f'{os.getcwd()}/methods/white_box_cartoonizer/saved_models'
+weights_dir = f'{os.getcwd()}/examples/pixelArt/methods/white_box_cartoonizer/saved_models'
 gpu = len(sys.argv) < 2 or sys.argv[1] != '--cpu'
 
 class WB_Cartoonize:
