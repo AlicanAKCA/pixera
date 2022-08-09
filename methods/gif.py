@@ -1,9 +1,6 @@
-import os
 import cv2
 import numpy as np
-import gradio as gr
 from PIL import Image
-import paddlehub as hub
 from methods.img2pixl import pixL
 from examples.pixelArt.combine import combine
 from examples.pixelArt.white_box_cartoonizer.cartoonize import WB_Cartoonize

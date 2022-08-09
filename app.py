@@ -1,9 +1,6 @@
 import cv2
-import time
-import shutil
 import numpy as np
 import gradio as gr
-from PIL import Image
 import paddlehub as hub
 from methods.img2pixl import pixL
 from examples.pixelArt.combine import combine
@@ -12,40 +9,7 @@ model = hub.Module(name='U2Net')
 pixl = pixL()
 combine = combine()
 
-def GIF(image,pixel_size):
-    fname = image.name
-    time.sleep(10)
-    shutil.copy(fname, 'temp.gif')
-    time.sleep(10)
-    gif = Image.open("temp.gif")
-    
-    print(fname, gif.n_frames)
-    frames = []
-    for i in range(gif.n_frames):
-        gif.seek(i)
-        frame = Image.new('RGBA', gif.size)
-        frame.paste(gif)
-        frame = np.array(frame)
-        frames.append(frame)
-    print(len(frames))
-    
-    result = pixl.toThePixL(frames, pixel_size)
-    print(len(result), result[0].shape)
-    frames = []
-    for frame in result:
-        
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        frame = Image.fromarray(frame)    
-        frames.append(frame)
-    print(type(frames), len(frames), type(frames[0]), frames[0].size)
-    frames[0].save('new.gif', append_images=frames, save_all=True, loop=1)
-    return Image.open('cache.gif')
-
 def func_tab1(image,pixel_size, checkbox1):
-  if image.name.endswith('.gif'):
-    print(type(image),type(image.name))
-    GIF(image,pixel_size)
-  else:
     image = cv2.imread(image.name)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     image = WB_Cartoonize().infer(image)
