@@ -16,14 +16,14 @@ class pixL:
   def preprocess(self):
     for image in self.images:
 
-      size = (image.shape[0] - (image.shape[0] % 4), image.shape[1] - (image.shape[1] % 4))
+      size = (self.ImgW - (self.ImgW % 4), self.ImgH - (self.ImgH % 4))
       image = cv2.resize(image, size)
       image = cv2.cvtColor(image.astype(np.uint8), cv2.COLOR_BGR2RGB)
-    
     if len(self.images) == 1:
       return self.images[0]
     else:
       return self.images
+
 
   def toThePixL(self,images, pixel_size):
     self.images = []
@@ -33,7 +33,6 @@ class pixL:
       image = image.convert("RGB")
       self.ImgW, self.ImgH = image.size
       self.images.append(pixL.epicAlgorithm(self, image))
-      
     return pixL.preprocess(self)
 
   def numOfSquaresFunc(self):
