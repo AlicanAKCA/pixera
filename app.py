@@ -9,7 +9,7 @@ model = hub.Module(name='U2Net')
 pixl = pixL()
 combine = combine()
 
-def func_tab1(image,pixel_size, checkbox1):
+def initilize(image,pixel_size, checkbox1):
     image = cv2.imread(image.name)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     image = WB_Cartoonize().infer(image)
@@ -30,12 +30,13 @@ def func_tab1(image,pixel_size, checkbox1):
       result = pixl.toThePixL([image], pixel_size)
     return result
 
-inputs_tab1 = [gr.inputs.Image(type='file', label="Image"),
+inputs = [gr.inputs.Image(type='file', label="Image"),
                gr.Slider(4, 100, value=12, step = 2, label="Pixel Size"),
                gr.Checkbox(label="Object-Oriented Inference", value=False)]
-outputs_tab1 = [gr.Image(type="file",label="Front")]
+outputs = [gr.Image(type="file",label="Front")]
 
-gr.Interface(fn = func_tab1,
-                    inputs = inputs_tab1,
-                    outputs = outputs_tab1).launch()
+description = "Pixera for GIF and Video will be released soon."
+gr.Interface(fn = initilize,
+                    inputs = inputs,
+                    outputs = outputs).launch()
 
