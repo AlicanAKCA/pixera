@@ -6,7 +6,7 @@ import paddlehub as hub
 from PIL import Image
 from methods.img2pixl import pixL
 from examples.pixelArt.combine import combine
-#cartoonlama ve ooi frame frame çalışması için büyük ihtimal image2pix e taşınacak
+
 model = hub.Module(name='U2Net')
 device = "cuda" if torch.cuda.is_available() else "cpu"
 face2paint = torch.hub.load("bryandlee/animegan2-pytorch:main", "face2paint", device=device, size=512)
