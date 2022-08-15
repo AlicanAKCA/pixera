@@ -68,15 +68,7 @@ After running the app.py, will have shown you a link which provides to reach the
 ```
 ## License
 
-1. Copyright (C) Xinrui Wang, Jinze Yu. (White box cartoonization)
-
-     All rights reserved.
-     
-     Licensed under the CC BY-NC-SA 4.0
-     
-     Also, Commercial application is prohibited license (https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
-
-2. Qin, Xuebin and Zhang, Zichen and Huang, Chenyang and Dehghan, Masood and Zaiane, Osmar and Jagersand, Martin (U2-Net: Going Deeper with Nested U-Structure for Salient Object Detection)
+1. Qin, Xuebin and Zhang, Zichen and Huang, Chenyang and Dehghan, Masood and Zaiane, Osmar and Jagersand, Martin (U2-Net: Going Deeper with Nested U-Structure for Salient Object Detection)
 
      Licensed under the Apache-2.0 
      ```
@@ -90,6 +82,6 @@ After running the app.py, will have shown you a link which provides to reach the
      }
      ```
 
-3. Copyright (C) Alican Akca. (Pixera Algorithm)
+2. Copyright (C) Alican Akca. (Pixera Algorithm)
 
      Suitable for commercial use.
