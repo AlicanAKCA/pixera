@@ -3,7 +3,6 @@ import numpy as np
 from PIL import Image
 from methods.img2pixl import pixL
 from examples.pixelArt.combine import combine
-from examples.pixelArt.white_box_cartoonizer.cartoonize import WB_Cartoonize
 pixl = pixL()
 combine = combine()
 from PIL import Image
