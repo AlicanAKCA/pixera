@@ -38,12 +38,14 @@ def initilize(media,pixel_size,checkbox1):
                                 background_image = media)
       else:
         result = pixL().toThePixL([media], pixel_size)
-      return Image.fromarray(result)
+        result.save('cache.png')
+      return [Image.fromarray(result), 'cache.png']
 
 inputs = ["file",
                gr.Slider(4, 100, value=12, step = 2, label="Pixel Size"),
                gr.Checkbox(label="Object-Oriented Inference", value=False)]
-outputs = [gr.Video()]
+outputs = [gr.Video(),
+           "file"]
 
 gr.Interface(fn = initilize,
                     inputs = inputs,

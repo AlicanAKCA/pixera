@@ -29,4 +29,4 @@ class Media:
         for i in range(len(frames)):
             out.write(frames[i])
         out.release()
-        return output_file
+        return [output_file, 'cache.gif']
