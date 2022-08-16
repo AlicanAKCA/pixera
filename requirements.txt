@@ -1,12 +1,7 @@
 pip
 torch
-imageio
 gradio
-tensorflow
-Flask
-gunicorn
 Pillow
+imageio
+paddlehub
 opencv_python
-algorithmia
-tf_slim
-PyYaml
