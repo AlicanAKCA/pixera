@@ -41,13 +41,13 @@ def initilize(media,pixel_size,checkbox1):
         result.save('cache.png')
       return [Image.fromarray(result), 'cache.png']
 
-inputs = [,
+inputs = [gr.File(label="Media"),
                gr.Slider(4, 100, value=12, step = 2, label="Pixel Size"),
                gr.Checkbox(label="Object-Oriented Inference", value=False)]
 outputs = [gr.Video(label="Pixed Media"),
            gr.File(label="Download")]
 title = "Pixera: Create your own Pixel Art"
-description = """Mobile applications will have released soon. ^^ """
+description = """Mobile applications will have released soon ^^ """
 gr.Interface(fn = initilize,
                     inputs = inputs,
                     outputs = outputs).launch()
