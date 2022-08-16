@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 class combine:
-    #Author:  Alican Akca
+    #Author: Alican Akca
     def __init__(self, size = (400,300),images = [],background_image = None):
         self.size = size
         self.images = images

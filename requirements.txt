@@ -4,4 +4,7 @@ gradio
 Pillow
 imageio
 paddlehub
+torchaudio
+torchvision
+paddlepaddle
 opencv_python

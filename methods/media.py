@@ -14,7 +14,7 @@ class Media:
         self.fname = fname
         self.pixel_size = pixel_size
 
-    def split(self,fname,pixel_size):
+    def split(self,fname,pixel_size, mediaType):
         media = cv2.VideoCapture(fname)
         frames = []
         while True:
@@ -23,10 +23,13 @@ class Media:
                 break
             frames.append(cv2Image)
         frames = pixL().toThePixL(frames, pixel_size)
-        imageio.mimsave('cache.gif', frames)
-        output_file = "cache.mp4"
-        out = cv2.VideoWriter(output_file,cv2.VideoWriter_fourcc(*'h264'), 15, (frames[0].shape[1],frames[0].shape[0]))
-        for i in range(len(frames)):
-            out.write(frames[i])
-        out.release()
-        return [output_file, None, 'cache.gif']
+        if mediaType == 'gif':
+            imageio.mimsave('cache.gif', frames)
+            return [None, 'cache.gif', 'cache.gif']       
+        else:
+            output_file = "cache.mp4"
+            out = cv2.VideoWriter(output_file,cv2.VideoWriter_fourcc(*'h264'), 15, (frames[0].shape[1],frames[0].shape[0]))
+            for i in range(len(frames)):
+                out.write(frames[i])
+            out.release()
+            return [output_file, None, output_file]

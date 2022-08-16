@@ -21,9 +21,9 @@ model = torch.hub.load("bryandlee/animegan2-pytorch", "generator", device=device
 def initilize(media,pixel_size,checkbox1):
     #Author:  Alican Akca
     if media.name.endswith('.gif'):
-      return Media().split(media.name,pixel_size)
+      return Media().split(media.name,pixel_size, 'gif')
     elif media.name.endswith('.mp4'):
-      return Media().split(media.name,pixel_size)
+      return Media().split(media.name,pixel_size, "video")
     else:
       media = Image.open(media.name).convert("RGB")
       media = cv2.cvtColor(np.asarray(face2paint(model, media)), cv2.COLOR_BGR2RGB)
@@ -34,7 +34,7 @@ def initilize(media,pixel_size,checkbox1):
                                     input_size=320,  
                                     output_dir='output',
                                     visualization=True)
-        result = combine.combiner(images = pixL().toThePixL([result[0]['front'][:,:,::-1], result[0]['mask']], 
+        result = combine().combiner(images = pixL().toThePixL([result[0]['front'][:,:,::-1], result[0]['mask']], 
                                                         pixel_size),
                                 background_image = media)
       else:
@@ -44,18 +44,18 @@ def initilize(media,pixel_size,checkbox1):
       return [None, result, 'cache.png']
 
 inputs = [gr.File(label="Media"),
-               gr.Slider(4, 100, value=12, step = 2, label="Pixel Size"),
-               gr.Checkbox(label="Object-Oriented Inference", value=False)]
+          gr.Slider(4, 100, value=12, step = 2, label="Pixel Size"),
+          gr.Checkbox(label="Object-Oriented Inference", value=False)]
+
 outputs = [gr.Video(label="Pixed Media"),
            gr.Image(label="Pixed Media"),
            gr.File(label="Download")]
 
 title = "Pixera: Create your own Pixel Art"
-description = """Mobile applications will have released soon ^^ """
+description = """- Mobile applications will have released soon ^^. \n- Object-Oriented Inference is currently only available for images."""
 
 gr.Interface(fn = initilize,
                     inputs = inputs,
                     outputs = outputs,
                     title=title,
                     description=description).launch()
-
