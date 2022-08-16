@@ -4,8 +4,8 @@ from PIL import Image
 
 class pixL:
   #Author:  Alican Akca
-  def __init__(self,numOfSquaresW = None, numOfSquaresH= None, size = [False, (512,512)],square = 6,ImgH = None,ImgW = None,images = [],background_image = None):
-    self.images = images
+  def __init__(self,numOfSquaresW = None, numOfSquaresH= None, size = [False, (512,512)],square = 6,ImgH = None,ImgW = None):
+    self.images = []
     self.size = size
     self.ImgH = ImgH
     self.ImgW = ImgW
@@ -26,7 +26,6 @@ class pixL:
 
 
   def toThePixL(self,images, pixel_size):
-    self.images = []
     self.square = pixel_size
     for image in images:
       image = Image.fromarray(image)
