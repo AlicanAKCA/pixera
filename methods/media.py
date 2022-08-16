@@ -1,6 +1,5 @@
 import cv2
 import torch
-from PIL import Image
 import imageio
 from methods.img2pixl import pixL
 
