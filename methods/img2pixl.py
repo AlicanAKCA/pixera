@@ -3,9 +3,9 @@ import numpy as np
 from PIL import Image
 
 class pixL:
-  #Author:  Alican Akca
-  def __init__(self,numOfSquaresW = None, numOfSquaresH= None, size = [False, (512,512)],square = 6,ImgH = None,ImgW = None):
-    self.images = []
+  #Author: Alican Akca
+  def __init__(self,numOfSquaresW = None, numOfSquaresH= None, size = [False, (512,512)],square = 6,ImgH = None,ImgW = None,images = [],background_image = None):
+    self.images = images
     self.size = size
     self.ImgH = ImgH
     self.ImgW = ImgW
@@ -16,22 +16,24 @@ class pixL:
   def preprocess(self):
     for image in self.images:
 
-      size = (self.ImgW - (self.ImgW % 4), self.ImgH - (self.ImgH % 4))
+      size = (image.shape[0] - (image.shape[0] % 4), image.shape[1] - (image.shape[1] % 4))
       image = cv2.resize(image, size)
       image = cv2.cvtColor(image.astype(np.uint8), cv2.COLOR_BGR2RGB)
+    
     if len(self.images) == 1:
       return self.images[0]
     else:
       return self.images
 
-
   def toThePixL(self,images, pixel_size):
+    self.images = []
     self.square = pixel_size
     for image in images:
       image = Image.fromarray(image)
       image = image.convert("RGB")
       self.ImgW, self.ImgH = image.size
       self.images.append(pixL.epicAlgorithm(self, image))
+      
     return pixL.preprocess(self)
 
   def numOfSquaresFunc(self):

@@ -1,3 +1,4 @@
+import os
 import cv2
 import torch
 import warnings
@@ -38,17 +39,23 @@ def initilize(media,pixel_size,checkbox1):
                                 background_image = media)
       else:
         result = pixL().toThePixL([media], pixel_size)
-        result.save('cache.png')
-      return [Image.fromarray(result), 'cache.png']
+      result = Image.fromarray(result)
+      result.save('cache.png')
+      return [None, result, 'cache.png']
 
 inputs = [gr.File(label="Media"),
                gr.Slider(4, 100, value=12, step = 2, label="Pixel Size"),
                gr.Checkbox(label="Object-Oriented Inference", value=False)]
 outputs = [gr.Video(label="Pixed Media"),
+           gr.Image(label="Pixed Media"),
            gr.File(label="Download")]
+
 title = "Pixera: Create your own Pixel Art"
 description = """Mobile applications will have released soon ^^ """
+
 gr.Interface(fn = initilize,
                     inputs = inputs,
-                    outputs = outputs).launch()
+                    outputs = outputs,
+                    title=title,
+                    description=description).launch()
 

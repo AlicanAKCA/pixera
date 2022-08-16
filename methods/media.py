@@ -1,5 +1,6 @@
 import cv2
 import torch
+from PIL import Image
 import imageio
 from methods.img2pixl import pixL
 
@@ -29,4 +30,4 @@ class Media:
         for i in range(len(frames)):
             out.write(frames[i])
         out.release()
-        return [output_file, 'cache.gif']
+        return [output_file, None, 'cache.gif']
