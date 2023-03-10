@@ -1,61 +1,125 @@
 import os
 import cv2
 import torch
-import warnings
+import random
 import numpy as np
 import gradio as gr
-import paddlehub as hub
-from PIL import Image
-from methods.img2pixl import pixL
-from examples.pixelArt.combine import combine
-from methods.media import Media
+from util import util
+from util.img2pixl import pixL
+from data import create_dataset
+from models import create_model
+from options.test_options import TestOptions
+from wandb.sdk.data_types.image import Image
 
-warnings.filterwarnings("ignore")
+opt = TestOptions().parse()
+opt.num_threads = 0
+opt.batch_size = 1
+opt.display_id = -1
+opt.no_dropout = True
 
-U2Net = hub.Module(name='U2Net')
-device = "cuda" if torch.cuda.is_available() else "cpu"
-face2paint = torch.hub.load("bryandlee/animegan2-pytorch:main", "face2paint", device=device, size=512)
-model = torch.hub.load("bryandlee/animegan2-pytorch", "generator", device=device).eval()
+model = create_model(opt)
+model.setup(opt)
+
+num_inferences = 0
+
+def preprocess(image):
+
+  im_type = None
+  imgH, imgW = image.shape[:2]
+  aspect_ratio = imgW / imgH
 
 
-def initilize(media,pixel_size,checkbox1):
-    #Author:  Alican Akca
-    if media.name.endswith('.gif'):
-      return Media().split(media.name,pixel_size, 'gif')
-    elif media.name.endswith('.mp4'):
-      return Media().split(media.name,pixel_size, "video")
-    else:
-      media = Image.open(media.name).convert("RGB")
-      media = cv2.cvtColor(np.asarray(face2paint(model, media)), cv2.COLOR_BGR2RGB)
-      if checkbox1:
-        result = U2Net.Segmentation(images=[media],
-                                    paths=None,
-                                    batch_size=1,
-                                    input_size=320,  
-                                    output_dir='output',
-                                    visualization=True)
-        result = combine().combiner(images = pixL().toThePixL([result[0]['front'][:,:,::-1], result[0]['mask']], 
-                                                        pixel_size),
-                                background_image = media)
-      else:
-        result = pixL().toThePixL([media], pixel_size)
-      result = Image.fromarray(result)
-      result.save('cache.png')
-      return [None, result, 'cache.png']
+  if 0.75 <= aspect_ratio <= 1.75:
 
-inputs = [gr.File(label="Media"),
-          gr.Slider(4, 100, value=12, step = 2, label="Pixel Size"),
-          gr.Checkbox(label="Object-Oriented Inference", value=False)]
+    image = cv2.resize(image, (512, 512))
+    image = pixL().toThePixL([image],6)
+    image = image[0]
 
-outputs = [gr.Video(label="Pixed Media"),
-           gr.Image(label="Pixed Media"),
-           gr.File(label="Download")]
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    image = np.asarray([image])
+    image = np.transpose(image, (0, 3, 1, 2))
 
-title = "Pixera: Create your own Pixel Art"
-description = """- Mobile applications will have released soon ^^. \n- Object-Oriented Inference is currently only available for images."""
+    image = inference(image)
 
-gr.Interface(fn = initilize,
-                    inputs = inputs,
-                    outputs = outputs,
-                    title=title,
-                    description=description).launch()
+    return image
+
+  elif 1.75 <= aspect_ratio: # upper boundary
+
+    image = cv2.resize(image, (1024, 512))
+    middlePoint = image.shape[1] // 2
+    half_1 = image[:,:middlePoint]
+    half_2 = image[:,middlePoint:]
+    images = pixL().toThePixL([half_1,half_2],6)
+
+    for image in images:
+      
+      image = np.asarray([image])
+      image = np.transpose(image, (0, 3, 1, 2))
+      image = inference(image)
+    
+    image = cv2.hconcat([images[0], images[1]])
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    return image
+
+  elif 0.00 <= aspect_ratio <= 0.75:
+
+    image = cv2.resize(image, (512, 1024))
+    middlePoint = image.shape[0] // 2
+    half_1 = image[:middlePoint,:]
+    half_2 = image[middlePoint:,:]
+    images = pixL().toThePixL([half_1,half_2], 6)
+  
+    for image in images:
+
+      image = np.asarray([image])
+      image = np.transpose(image, (0, 3, 1, 2))
+      image = inference(image)
+    
+    image = cv2.vconcat([images[0], images[1]])
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    return image
+
+def postprocess(image):
+  image = util.tensor2im(image)
+  return image
+
+def inference(image):
+  global model
+
+  data = {"A": None, "A_paths": None}
+  data['A'] = torch.FloatTensor(image)
+
+  model.set_input(data)
+  model.test()
+
+  image = model.get_current_visuals()['fake']
+
+  return image
+
+def pixera_CYCLEGAN(image):
+  global num_inferences
+  
+  image = preprocess(image)
+
+  image = postprocess(image)
+
+  num_inferences += 1
+  print(num_inferences)
+  
+  return image
+
+title_ = "Pixera: Create your own Pixel Art"
+description_ = ""
+
+examples_path = f"{os.getcwd()}/imgs"
+examples_ = os.listdir(examples_path)
+random.shuffle(examples_)
+examples_ = [[f"{examples_path}/{example}"] for example in examples_]
+
+ 
+demo = gr.Interface(pixera_CYCLEGAN, inputs = [gr.Image(show_label= False)],
+                                     outputs = [gr.Image(show_label= False)], 
+                                     examples = examples_,
+                                     title = title_,
+                                     description= description_)
+demo.launch(debug= True, share=True)

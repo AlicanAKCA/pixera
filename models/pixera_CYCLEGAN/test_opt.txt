@@ -1,0 +1,42 @@
+----------------- Options ---------------
+             aspect_ratio: 1.0                           
+               batch_size: 1                             
+          checkpoints_dir: ./models                      
+                crop_size: 512                           
+                 dataroot: None                          
+             dataset_mode: single                        
+                direction: AtoB                          
+          display_winsize: 256                           
+                    epoch: latest                        
+                     eval: False                         
+                  gpu_ids: -1                            
+                init_gain: 0.02                          
+                init_type: normal                        
+                 input_nc: 3                             
+                  isTrain: False                         	[default: None]
+                load_iter: 0                             	[default: 0]
+                load_size: 512                           
+         max_dataset_size: inf                           
+                    model: test                          
+             model_suffix:                               
+               n_layers_D: 3                             
+                     name: pixera_CYCLEGAN               
+                      ndf: 64                            
+                     netD: basic                         
+                     netG: resnet_9blocks                
+                      ngf: 64                            
+               no_dropout: False                         
+                  no_flip: False                         
+                     norm: instance                      
+                 num_test: 50                            
+              num_threads: 4                             
+                output_nc: 3                             
+                    phase: test                          
+               preprocess: scale_width                   
+              results_dir: ./results/                    
+           serial_batches: False                         
+                   suffix:                               
+                use_wandb: False                         
+                  verbose: False                         
+       wandb_project_name: CycleGAN-and-pix2pix          
+----------------- End -------------------
