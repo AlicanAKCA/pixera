@@ -23,7 +23,10 @@ class pixL:
     self.ImgW, self.ImgH = self.image.size
     self.image = pixL.colorPicker(self)
     pixL.complier(self)
-    return pixL.postprocess(self)
+    if segMode == True:
+      return pixL.postprocess(self), self.pixValues
+    else:
+      return pixL.postprocess(self)
 
   def postprocess(self):
     image = self.background
