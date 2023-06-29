@@ -9,7 +9,6 @@ from util.img2pixl import pixL
 from data import create_dataset
 from models import create_model
 from options.test_options import TestOptions
-from wandb.sdk.data_types.image import Image
 
 opt = TestOptions().parse()
 opt.num_threads = 0
@@ -32,9 +31,7 @@ def preprocess(image):
   if 0.75 <= aspect_ratio <= 1.75:
 
     image = cv2.resize(image, (512, 512))
-    image = pixL().toThePixL([image],6)
-    image = image[0]
-
+    image = pixL().toThePixL(image,6,True)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     image = np.asarray([image])
     image = np.transpose(image, (0, 3, 1, 2))
@@ -49,10 +46,10 @@ def preprocess(image):
     middlePoint = image.shape[1] // 2
     half_1 = image[:,:middlePoint]
     half_2 = image[:,middlePoint:]
-    images = pixL().toThePixL([half_1,half_2],6)
-
-    for image in images:
+    images = [half_1,half_2]
       
+    for image in images:
+      image = pixL().toThePixL(image,6,True)
       image = np.asarray([image])
       image = np.transpose(image, (0, 3, 1, 2))
       image = inference(image)
@@ -67,10 +64,10 @@ def preprocess(image):
     middlePoint = image.shape[0] // 2
     half_1 = image[:middlePoint,:]
     half_2 = image[middlePoint:,:]
-    images = pixL().toThePixL([half_1,half_2], 6)
-  
+    images = [half_1,half_2]
+      
     for image in images:
-
+      image = pixL().toThePixL(image,6,True)
       image = np.asarray([image])
       image = np.transpose(image, (0, 3, 1, 2))
       image = inference(image)
