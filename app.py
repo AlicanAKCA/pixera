@@ -31,7 +31,7 @@ def preprocess(image):
   if 0.75 <= aspect_ratio <= 1.75:
 
     image = cv2.resize(image, (512, 512))
-    image = pixL().toThePixL(image,6,True)
+    image = pixL().toThePixL(image,6,False)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     image = np.asarray([image])
     image = np.transpose(image, (0, 3, 1, 2))
@@ -49,7 +49,7 @@ def preprocess(image):
     images = [half_1,half_2]
       
     for image in images:
-      image = pixL().toThePixL(image,6,True)
+      image = pixL().toThePixL(image,6,False)
       image = np.asarray([image])
       image = np.transpose(image, (0, 3, 1, 2))
       image = inference(image)
@@ -67,7 +67,7 @@ def preprocess(image):
     images = [half_1,half_2]
       
     for image in images:
-      image = pixL().toThePixL(image,6,True)
+      image = pixL().toThePixL(image,6,False)
       image = np.asarray([image])
       image = np.transpose(image, (0, 3, 1, 2))
       image = inference(image)
