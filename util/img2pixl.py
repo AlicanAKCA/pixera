@@ -6,48 +6,48 @@ from PIL import Image
 
 class pixL:
 
-  def __init__(self,numOfSquaresW = None, numOfSquaresH= None, size = [True, (512,512)],square = 6,ImgH = None,ImgW = None,images = [],background_image = None):
-    self.images = images
+  def __init__(self,numOfSquaresW = None, numOfSquaresH= None, size = [True, (512,512)],square = 6,ImgH = None,ImgW = None,image = None,background = None, pixValues = []):
     self.size = size
     self.ImgH = ImgH
     self.ImgW = ImgW
+    self.image = image
     self.square = square
+    self.pixValues = pixValues
+    self.background = background
     self.numOfSquaresW = numOfSquaresW
     self.numOfSquaresH = numOfSquaresH
 
-  def preprocess(self):
-    for image in self.images:
-
-      size = (image.shape[0] - (image.shape[0] % 4), image.shape[1] - (image.shape[1] % 4))
-      image = cv2.resize(image, size)
-    return self.images
-
-
-  def toThePixL(self,images, pixel_size):
-    self.images = []
+  def toThePixL(self,image, pixel_size, segMode= False):
     self.square = pixel_size
-    for image in images:
-      image = Image.fromarray(image)
-      image = image.convert("RGB")
-      self.ImgW, self.ImgH = image.size
-      self.images.append(pixL.epicAlgorithm(self, image))
-      
-    return pixL.preprocess(self)
+    self.image = Image.fromarray(image).convert("RGB").resize((512,512))
+    self.ImgW, self.ImgH = self.image.size
+    self.image = pixL.colorPicker(self)
+    pixL.complier(self)
+    return pixL.postprocess(self)
+
+  def postprocess(self):
+    image = self.background
+    size = (image.shape[0] - (image.shape[0] % 4), image.shape[1] - (image.shape[1] % 4))
+    image = cv2.resize(image, size)
+    return image
 
   def numOfSquaresFunc(self):
     self.numOfSquaresW = round((self.ImgW / self.square) + 1)
     self.numOfSquaresH = round((self.ImgH / self.square) + 1)
 
   def optimizer(RGB):
-    
+
     R_ = RGB[2]
     G_ = RGB[1]
     B_ = RGB[0]
 
-    if R_ < 50 and G_ < 50 and B_ < 50: 
-      
+    if R_ < 50 and G_ < 50 and B_ < 50:
+
       return (R_, G_, B_)
 
+    elif 220 < R_ < 255 and 220 < G_ < 255 and 220 < B_ < 255:
+
+      return (R_, G_, B_)
     else:
       sign = lambda x, y: random.choice([x,y])
 
@@ -61,52 +61,52 @@ class pixL:
 
       return (R_, G_, B_)
 
-  def epicAlgorithm(self, image):
-    pixValues = []
+  def colorPicker(self):
     pixL.numOfSquaresFunc(self)
 
     for j in range(1,self.numOfSquaresH):
 
       for i in range(1,self.numOfSquaresW):
-        
-        pixValues.append((image.getpixel((
+
+        self.pixValues.append((self.image.getpixel((
               i * self.square - self.square//2,
               j * self.square - self.square//2)),
               (i * self.square - self.square//2,
               j * self.square - self.square//2)))
-    
-    background = 255 * np.ones(shape=[self.ImgH - self.square, 
-                                      self.ImgW - self.square*2, 3], 
-                                      dtype=np.uint8)                
-    
-    for pen in range(len(pixValues)):
-      
 
-      cv2.rectangle(background, 
-                    pt1=(pixValues[pen][1][0] - self.square, pixValues[pen][1][1] - self.square), #0, 0 -> 0, 0
-                    pt2=(pixValues[pen][1][0], pixValues[pen][1][1]), #6, 6 -> 3, 3
-                    color=(pixL.optimizer(pixValues[pen][0])), 
-                    thickness=-1)
-      
-      cv2.rectangle(background, 
-                    pt1=(pixValues[pen][1][0], pixValues[pen][1][1] - self.square), #0, 0 -> 3, 0
-                    pt2=(pixValues[pen][1][0] + self.square, pixValues[pen][1][1]), #6, 6 -> 6, 3
-                    color=(pixL.optimizer(pixValues[pen][0])), 
-                    thickness=-1)
-      
-      cv2.rectangle(background, 
-                    pt1=(pixValues[pen][1][0] - self.square, pixValues[pen][1][1]), #0, 0 -> 0, 3
-                    pt2=(pixValues[pen][1][0], pixValues[pen][1][1] + self.square), #6, 6 -> 3, 6
-                    color=(pixL.optimizer(pixValues[pen][0])), 
-                    thickness=-1)
-      
-      cv2.rectangle(background, 
-                    pt1=(pixValues[pen][1][0], pixValues[pen][1][1]), #0, 0 -> 3, 3
-                    pt2=(pixValues[pen][1][0] + self.square, pixValues[pen][1][1] + self.square), #6, 6 -> 6, 6
-                    color=(pixL.optimizer(pixValues[pen][0])), 
-                    thickness=-1)
-      
-    background = np.array(background).astype(np.uint8)
-    background = cv2.resize(background, (self.ImgW,self.ImgH), interpolation = cv2.INTER_AREA)
-    
-    return background
+    self.background = 255 * np.ones(shape=[self.ImgH - self.square,
+                                           self.ImgW - self.square*2, 3],
+                                    dtype=np.uint8)
+
+  def PEN(self,coorX,coorY,R,G,B):
+    SQUARE = self.square
+    cv2.rectangle(self.background,
+                 pt1=(coorX - SQUARE, coorY - SQUARE), #0, 0 -> 0, 0
+                 pt2=(coorX, coorY), #6, 6 -> 3, 3
+                 color=(pixL.optimizer((R,G,B))),
+                 thickness=-1)
+
+    cv2.rectangle(self.background,
+                 pt1=(coorX, coorY - SQUARE), #0, 0 -> 3, 0
+                 pt2=(coorX + SQUARE, coorY), #6, 6 -> 6, 3
+                 color=(pixL.optimizer((R,G,B))),
+                 thickness=-1)
+
+    cv2.rectangle(self.background,
+                  pt1=(coorX - SQUARE, coorY), #0, 0 -> 0, 3
+                  pt2=(coorX, coorY + SQUARE), #6, 6 -> 3, 6
+                  color=(pixL.optimizer((R,G,B))),
+                  thickness=-1)
+
+    cv2.rectangle(self.background,
+                 pt1=(coorX, coorY), #0, 0 -> 3, 3
+                 pt2=(coorX + SQUARE, coorY + SQUARE), #6, 6 -> 6, 6
+                 color=(pixL.optimizer((R,G,B))),
+                 thickness=-1)
+
+  def complier(self):
+    for index, value in enumerate(self.pixValues):
+      (R,G,B), (coorX, coorY) = value
+      pixL.PEN(self,coorX,coorY,R,G,B)
+    self.background = np.array(self.background).astype(np.uint8)
+    self.background = cv2.resize(self.background, (self.ImgW,self.ImgH), interpolation = cv2.INTER_AREA)
