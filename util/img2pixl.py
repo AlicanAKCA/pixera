@@ -22,7 +22,7 @@ class pixL:
     self.image = Image.fromarray(image).convert("RGB").resize((512,512))
     self.ImgW, self.ImgH = self.image.size
     self.image = pixL.colorPicker(self)
-    pixL.complier(self)
+    pixL.compiler(self)
     if segMode == True:
       return pixL.postprocess(self), self.pixValues
     else:
@@ -107,7 +107,7 @@ class pixL:
                  color=(pixL.optimizer((R,G,B))),
                  thickness=-1)
 
-  def complier(self):
+  def compiler(self):
     for index, value in enumerate(self.pixValues):
       (R,G,B), (coorX, coorY) = value
       pixL.PEN(self,coorX,coorY,R,G,B)
