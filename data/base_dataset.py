@@ -55,7 +55,7 @@ class BaseDataset(data.Dataset, ABC):
             index - - a random integer for data indexing
 
         Returns:
-            a dictionary of data with their names. It ususally contains the data itself and its metadata information.
+            a dictionary of data with their names. It usually contains the data itself and its metadata information.
         """
         pass
 

@@ -65,7 +65,7 @@ class Visualizer():
             opt -- stores all the experiment flags; needs to be a subclass of BaseOptions
         Step 1: Cache the training/test options
         Step 2: connect to a visdom server
-        Step 3: create an HTML object for saveing HTML filters
+        Step 3: create an HTML object for saving HTML filters
         Step 4: create a logging file to store training losses
         """
         self.opt = opt  # cache the option
